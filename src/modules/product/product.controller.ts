@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Get, Param } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Param,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
 import { ProductDto } from './product.dto';
 import { ProductService } from './product.service';
 
@@ -8,15 +16,27 @@ export class ProductController {
 
   @Post()
   async create(@Body() data: ProductDto) {
-    return this.productService.create(data);
+    try {
+      return this.productService.create(data);
+    } catch (error) {
+      throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST);
+    }
   }
   @Get()
   async findAll() {
-    return this.productService.findAll();
+    try {
+      return this.productService.findAll();
+    } catch (error) {
+      throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST);
+    }
   }
 
   @Get('/:id')
   async findByUserId(@Param('id') id: string) {
-    return this.productService.findByUserId(id);
+    try {
+      return this.productService.findByUserId(id);
+    } catch (error) {
+      throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST);
+    }
   }
 }

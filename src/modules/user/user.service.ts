@@ -8,16 +8,16 @@ export class UserService {
   constructor(private prisma: PrismaService) { }
 
   async create(data: UserDto) {
-    const exist = this.findUser(data.email);
-    console.log(data);
+    const exist = await this.findUser(data.email);
+    console.log(exist);
     if (exist) {
       return exist;
     }
 
-    const user = this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data,
     });
-
+    console.log('user', user);
     return user;
   }
 
