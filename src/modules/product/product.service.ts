@@ -18,14 +18,4 @@ export class ProductService {
 
     return product;
   }
-
-  async findByUserId(userId: string) {
-    const product = this.prisma.product.findMany({
-      where: {
-        userId,
-      },
-    });
-
-    return product;
-  }
 }

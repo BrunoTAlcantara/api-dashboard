@@ -30,13 +30,4 @@ export class ProductController {
       throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST);
     }
   }
-
-  @Get('/:id')
-  async findByUserId(@Param('id') id: string) {
-    try {
-      return this.productService.findByUserId(id);
-    } catch (error) {
-      throw new HttpException('Invalid input', HttpStatus.BAD_REQUEST);
-    }
-  }
 }
