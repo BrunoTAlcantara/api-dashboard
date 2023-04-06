@@ -11,20 +11,31 @@ datasource db {
 }
 
 model User {
-  id       String    @id @default(uuid())
-  name     String
-  email    String    @unique
-  first    Boolean?  @default(true)
-  // outros campos
+  id             String    @id @default(uuid())
+  name           String?
+  email          String    @unique
+  password       String
+  nickname       String?
+  email_Verified Boolean   @default(false)
+  first          Boolean?  @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime? @updatedAt
+
   products Product[]
+
+  @@map(name: "users")
 }
 
 model Product {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String?
   price       Float
   // outros campos
   userId      String
-  user        User    @relation(fields: [userId], references: [id])
+  user        User     @relation(fields: [userId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map(name: "products")
 }
